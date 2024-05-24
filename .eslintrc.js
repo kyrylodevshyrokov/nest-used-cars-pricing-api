@@ -17,6 +17,7 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    '@typescript-eslint/no-var-requires': 0,
     'prettier/prettier': [
       'error',
       { singleQuote: true, trailingComma: 'all', endOfLine: 'auto' },
