@@ -9,20 +9,24 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UsersService } from '../services/users.service';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { UserDto } from './dto/user.dto';
+import { UserDto } from '../dto/user.dto';
+import { AuthService } from '../services/auth.service';
 
 @Controller('auth')
 @Serialize(UserDto)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private authService: AuthService,
+  ) {}
 
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
-    this.usersService.create(body.email, body.password);
+    return this.authService.signup(body.email, body.password);
   }
 
   @Get('/:id')
