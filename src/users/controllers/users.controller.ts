@@ -26,7 +26,7 @@ import { User } from '../entities/user.entity';
 @Serialize(UserDto)
 export class UsersController {
   constructor(
-    private readonly usersService: UsersService,
+    private usersService: UsersService,
     private authService: AuthService,
   ) {}
 
