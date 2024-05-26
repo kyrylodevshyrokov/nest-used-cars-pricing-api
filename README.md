@@ -68,7 +68,7 @@ Here are the routes that can be used for routing in the app.
 
 ### _User_
 
-### Register
+### Sign Up
 
 - Method: **POST**
 - URL: {{URL}}/auth/signup
@@ -82,7 +82,7 @@ Here are the routes that can be used for routing in the app.
 - Requires Auth: **NO**
 - Description: This endpoint enables users to register by sending a POST request containing their chosen email and password.
 
-### Authenticate
+### Sign In
 
 - Method: **POST**
 - URL: {{URL}}/auth/signin
@@ -108,79 +108,67 @@ Here are the routes that can be used for routing in the app.
 - Method: **GET**
 - URL: {{URL}}/auth/profile
 - Requires Auth: **YES**
-- Description: This endpoint retrieves the profile information of the currently authenticated user. 
+- Description: This endpoint retrieves the profile information of the currently authenticated user.
 
-### _Events_
+### Find One User By ID
 
-### Create Event
+- Method: **GET**
+- URL: {{URL}}/auth/:id
+- Requires Auth: **NO**
+- Description: This endpoint retrieves brief profile information of the another user.
 
-- Method: **POST**
-- URL: {{URL}}/events
+### Update User By ID
+
+- Method: **PATCH**
+- URL: {{URL}}/auth/:id
 - Data:
 ```bash
 {
-    "name": "Interesting Party",
-    "description": "That is a crazy event, must go there!",
-    "address": "Local St 101",
-    "when": "2023-08-16 21:00:00"
+    "email": "test111@test.com",
+    "password": "password111"
 }
 ```
 - Requires Auth: **YES**
-- Description: This endpoint allows authenticated users to create a new event with filled following fields: name, description, address, and when.
+- Description: This endpoint allows to update user info by ID.
 
-### Get All Events
-
-- Method: **GET**
-- URL: {{URL}}/events
-- Requires Auth: **NO**
-- Description: This endpoint allows both authenticated and unauthenticated users to retrieve all events.
-
-### Get Single Event
-
-- Method: **GET**
-- URL: {{URL}}/events/:id
-- Requires Auth: **NO**
-- Description: This endpoint allows both authenticated and unauthenticated users to retrieve information about a specific event with ID.
-
-### Delete Event
+### Delete User By ID
 
 - Method: **DELETE**
-- URL: {{URL}}/events/:id
+- URL: {{URL}}/auth/:id
 - Requires Auth: **YES**
-- Description: This endpoint allows authenticated users to delete an event with ID.
+- Description: This endpoint allows to delete user info by ID.
 
-### Get Events Organized By User
+### _Reports_
 
-- Method: **GET**
-- URL: {{URL}}/events-organized-by-user/:id
-- Requires Auth: **NO**
-- Description: This endpoint allows both authenticated and unauthenticated users to retrieve a list of events organized by the user with ID.
+### Create Report
 
-### _Event Attendance_
-
-### Get Event Attendees
-
-- Method: **GET**
-- URL: {{URL}}/events/:id/attendees
-- Requires Auth: **NO**
-- Description: This endpoint allows both authenticated and unauthenticated users to retrieve the list of attendees for a specific event with ID.
-
-### Attend Event
-
-- Method: **PUT**
-- URL: {{URL}}/current-user-event-attendance/:id
+- Method: **POST**
+- URL: {{URL}}/reports
 - Data:
 ```bash
 {
-    "answer": 1
+    "year": 1981,
+    "price": 15000,
+    "mileage": 50000,
+    "lng": 45,
+    "lat": 45,
+    "model": "mustang",
+    "make": "ford"
 }
 ```
 - Requires Auth: **YES**
-- Description: This endpoint enables authenticated users to indicate their attendance at a specific event.
+- Description: This endpoint allows authenticated users to create a new used car report with filled following fields: year, price, mileage, lng, lat, model, and make.
 
-### Get Specific Event Attendance By Current User
+### Approve The Report
+
+- Method: **PATCH**
+- URL: {{URL}}/reports/:id
+- Requires Auth: **YES (Admin Only Feature)**
+- Description: This endpoint allows admin to approve report os the user.
+
+### Get An Estimate For Existing Vehicle
 
 - Method: **GET**
-- URL: {{URL}}/current-user-event-attendance/:id
+- URL: {{URL}}/reports/?make=ford&model=mustang&lng=45&lat=45&mileage=50000&year=1981
 - Requires Auth: **YES**
-- Description: This endpoint allows authenticated users to retrieve their attendance status for a specific event with ID.
+- Description: This endpoint allows authenticated user to get estimate for existing vehicle based on parameters that user applied for search. As a result average price of vehicles is appeared. Be aware that only approved reports appear in search.
