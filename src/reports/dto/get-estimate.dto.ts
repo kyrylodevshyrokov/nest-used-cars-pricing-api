@@ -8,6 +8,7 @@ import {
   Min,
 } from 'class-validator';
 import { toNumberFloat, toNumberInt } from '../helpers/to-number';
+import { maxNumber } from './constants';
 
 export class GetEstimateDto {
   @IsString()
@@ -33,6 +34,6 @@ export class GetEstimateDto {
   @Transform(toNumberInt)
   @IsNumber()
   @Min(0)
-  @Max(1000000)
+  @Max(maxNumber)
   mileage: number;
 }
