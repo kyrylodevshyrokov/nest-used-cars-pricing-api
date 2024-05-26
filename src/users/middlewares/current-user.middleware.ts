@@ -3,15 +3,17 @@ import { NextFunction, Request, Response } from 'express';
 import { UsersService } from '../services/users.service';
 import { User } from '../entities/user.entity';
 
-export interface RequestWithUser extends Request {
-  currentUser?: User;
+declare module 'Express' {
+  interface Request {
+    currentUser?: User;
+  }
 }
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
   constructor(private usersService: UsersService) {}
 
-  async use(req: RequestWithUser, res: Response, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction) {
     const { userId } = req.session || {};
 
     if (userId) {
