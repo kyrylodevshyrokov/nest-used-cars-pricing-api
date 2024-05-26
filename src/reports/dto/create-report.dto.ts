@@ -6,6 +6,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
+import { maxNumber } from './constants';
 
 export class CreateReportDto {
   @IsString()
@@ -21,7 +22,7 @@ export class CreateReportDto {
 
   @IsNumber()
   @Min(0)
-  @Max(1000000)
+  @Max(maxNumber)
   price: number;
 
   @IsLongitude()
@@ -32,6 +33,6 @@ export class CreateReportDto {
 
   @IsNumber()
   @Min(0)
-  @Max(1000000)
+  @Max(maxNumber)
   mileage: number;
 }
