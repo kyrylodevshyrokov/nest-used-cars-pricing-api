@@ -7,9 +7,8 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { toNumberFloat, toNumberInt } from '../helpers/to-number';
 import { maxNumber } from './constants';
-
+import { toNumberInt, toNumberFloat } from '../../helpers/to-number';
 export class GetEstimateDto {
   @IsString()
   make: string;
